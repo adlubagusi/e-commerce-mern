@@ -81,7 +81,7 @@ const Checkout = () => {
             (acc, item) => acc + item.qty * item.discountPrice,
             0
           );
-          const discountPrice = (eligiblePrice * couponCodeValue) / 100;
+          const discountPrice = Math.max(Math.min((eligiblePrice * couponCodeValue) / 100,res.data.couponCode.maxAmount),res.data.couponCode.minAmount);
           setDiscountPrice(discountPrice);
           setCouponCodeData(res.data.couponCode);
           setCouponCode("");
@@ -316,7 +316,7 @@ const CartData = ({
     <div className="w-full bg-[#fff] rounded-md p-5 pb-8">
       <div className="flex justify-between">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">subtotal:</h3>
-        <h5 className="text-[18px] font-[600]">Rp {subTotalPrice}</h5>
+        <h5 className="text-[18px] font-[600]">Rp {subTotalPrice.toFixed(2)}</h5>
       </div>
       <br />
       <div className="flex justify-between">
